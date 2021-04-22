@@ -5,7 +5,7 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
 
-public class Config extends TFX{
+public class Config extends TFX {
 
     public NeutralMode NEUTRAL_MODE = NeutralMode.Coast;
     // factory default

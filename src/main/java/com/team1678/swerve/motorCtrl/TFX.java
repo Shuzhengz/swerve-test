@@ -6,7 +6,11 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class TFX {
 
-    private final static int kTimeoutMs = 100;
+    TFX() {
+        throw new IllegalStateException("Talon FX Factory");
+    }
+
+    private static final int kTimeoutMs = 100;
 
     private static final Config kDefaultConfiguration = new Config();
     private static final Config kSlaveConfiguration = new Config();
