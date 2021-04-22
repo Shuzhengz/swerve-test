@@ -153,3 +153,7 @@ gradle-app.setting
 .settings/
 bin/
 imgui.ini
+
+# # IntelliJ Specific Java Settings
+.idea/
+*.iml
