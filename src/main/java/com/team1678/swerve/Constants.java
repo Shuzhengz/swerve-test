@@ -47,4 +47,11 @@ public class Constants {
     public static final int kLeftDriveSlaveId = 2;
 
     public static final int kIndexerId = 5;
+
+    //Limelight
+    public static final double kMaxTrackerDistance = 15.0;
+    public static final double kMaxGoalTrackAge = 30.0;
+    public static final double kMaxGoalTrackSmoothingTime = 1.5;
+    public static final double kCameraFrameRate = 90.0;
+
 }
