@@ -1,6 +1,5 @@
 package com.team254.lib.geometry;
 
-import com.team1323.lib.geometry.UnwrappablePose2d;
 import com.team254.lib.util.Util;
 
 /**
@@ -48,9 +47,6 @@ public class Pose2d implements IPose2d<Pose2d> {
         return new Pose2d(new Translation2d(), rotation);
     }
 
-    public UnwrappablePose2d unwrap() {
-        return new UnwrappablePose2d(translation_.unwrap(), rotation_.unwrap());
-    }
 
     /**
      * Obtain a new Pose2d from a (constant curvature) velocity. See:

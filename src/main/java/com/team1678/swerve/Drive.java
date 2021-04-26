@@ -1,6 +1,6 @@
 package com.team1678.swerve;
 
-import com.team1678.swerve.motorCtrl.TFX;
+import com.team254.lib.drivers.TalonFXFactory;
 
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.*;
@@ -45,17 +45,17 @@ public class Drive {
         mPeriodicIO = new PeriodicIO();
 
         // Start all Talons in open loop mode.
-        mLeftMaster = TFX.createDefaultTalon(Constants.kLeftDriveMasterId);
+        mLeftMaster = TalonFXFactory.createDefaultTalon(Constants.kLeftDriveMasterId);
         configureMaster(mLeftMaster, true);
 
-        mLeftSlave = TFX.createPermanentSlaveTalon(Constants.kLeftDriveSlaveId,
+        mLeftSlave = TalonFXFactory.createPermanentSlaveTalon(Constants.kLeftDriveSlaveId,
                 Constants.kLeftDriveMasterId);
         mLeftSlave.setInverted(true);
 
-        mRightMaster = TFX.createDefaultTalon(Constants.kRightDriveMasterId);
+        mRightMaster = TalonFXFactory.createDefaultTalon(Constants.kRightDriveMasterId);
         configureMaster(mRightMaster, false);
 
-        mRightSlave = TFX.createPermanentSlaveTalon(Constants.kRightDriveSlaveId,
+        mRightSlave = TalonFXFactory.createPermanentSlaveTalon(Constants.kRightDriveSlaveId,
                 Constants.kRightDriveMasterId);
         mRightSlave.setInverted(false);
     }

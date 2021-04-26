@@ -1,6 +1,5 @@
 package com.team254.lib.geometry;
 
-import com.team1323.lib.geometry.UnwrappableRotation2d;
 import com.team254.lib.util.Util;
 
 import java.text.DecimalFormat;
@@ -78,9 +77,6 @@ public class Rotation2d implements IRotation2d<Rotation2d> {
         return fromRadians(Math.toRadians(angle_degrees));
     }
 
-    public UnwrappableRotation2d unwrap() {
-        return UnwrappableRotation2d.fromRadians(radians_);
-    }
 
     public double cos() {
         ensureTrigComputed();

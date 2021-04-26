@@ -1,6 +1,5 @@
 package com.team254.lib.geometry;
 
-import com.team1323.lib.geometry.UnwrappablePose2dWithCurvature;
 import com.team254.lib.util.Util;
 
 import java.text.DecimalFormat;
@@ -44,10 +43,6 @@ public class Pose2dWithCurvature implements IPose2d<Pose2dWithCurvature>, ICurva
         pose_ = new Pose2d(translation, rotation);
         curvature_ = curvature;
         dcurvature_ds_ = dcurvature_ds;
-    }
-
-    public UnwrappablePose2dWithCurvature unwrap() {
-        return new UnwrappablePose2dWithCurvature(pose_.unwrap(), curvature_);
     }
 
     @Override

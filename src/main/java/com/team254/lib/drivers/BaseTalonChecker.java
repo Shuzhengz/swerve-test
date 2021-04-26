@@ -2,7 +2,7 @@ package com.team254.lib.drivers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.team1678.frc2021.subsystems.Subsystem;
+//import com.team1678.swerve.subsystems.Subsystem;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,12 @@ public class BaseTalonChecker extends MotorChecker<BaseTalon> {
 
     protected ArrayList<StoredBaseTalonConfiguration> mStoredConfigurations = new ArrayList<>();
 
-    public static boolean checkMotors(Subsystem subsystem,
-                                      ArrayList<MotorConfig<BaseTalon>> motorsToCheck,
-                                      CheckerConfig checkerConfig) {
-        BaseTalonChecker checker = new BaseTalonChecker();
-        return checker.checkMotorsImpl(subsystem, motorsToCheck, checkerConfig);
-    }
+    //public static boolean checkMotors(Subsystem subsystem,
+    //                                  ArrayList<MotorConfig<BaseTalon>> motorsToCheck,
+    //                                  CheckerConfig checkerConfig) {
+    //    BaseTalonChecker checker = new BaseTalonChecker();
+    //    return checker.checkMotorsImpl(subsystem, motorsToCheck, checkerConfig);
+    //}
 
     @Override
     protected void storeConfiguration() {
