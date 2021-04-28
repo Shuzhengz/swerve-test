@@ -1,24 +1,32 @@
 package com.team1678.swerve;
 
 
+import com.team254.lib.geometry.Pose2d;
+import com.team254.lib.geometry.Rotation2d;
+import com.team254.lib.geometry.Translation2d;
+
 public class Constants {
     /* ROBOT PHYSICAL CONSTANTS */
-    // Wheels
-    public static final double kDriveWheelTrackWidthInches = 31.170;
-    public static final double kDriveWheelDiameterInches = 5.67;
-    public static final double kDriveWheelRadiusInches = kDriveWheelDiameterInches / 2.0;
-    public static final double kTrackScrubFactor = 1.0; // TODO Tune me!
+    //Physical Robot Dimensions (including bumpers)
+    public static final double kRobotWidth = 17.5;
+    public static final double kRobotLength = 17.5;
+    public static final double kRobotHalfWidth = kRobotWidth / 2.0;
+    public static final double kRobotHalfLength = kRobotLength / 2.0;
+    public static final double kRobotProbeExtrusion = 4.0;
+
+    public static final double kWheelbaseLength = 17.8;
+    public static final double kWheelbaseWidth  = 17.8;
+    public static final double kSwerveDiagonal = Math.hypot(kWheelbaseLength, kWheelbaseWidth);
+
+    //Swerve Odometry Constants
+    public static final double kSwerveWheelDiameter = 4.0901; //inches (actual diamter is closer to 3.87, but secondary algorithm prefers 4.0901) 3.76
+    public static final double kSwerveDriveEncoderResolution = 4096.0;
+
     // Tuned dynamics
-    public static final double kRobotLinearInertia = 60.0; // kg TODO tune
-    public static final double kRobotAngularInertia = 25.0; // kg m^2 TODO tune
-    public static final double kRobotAngularDrag = 30.0; // N*m / (rad/sec) TODO tune
-    public static final double kDriveVIntercept = 0.8; // V
-    public static final double kDriveKv = 0.19; // V per rad/s
-    public static final double kDriveKa = 0.012; // V per rad/s^2
-    public static final double kPathKX = 4.0; // units/s per unit of error
-    public static final double kPathLookaheadTime = 0.4; // seconds to look ahead along the path for steering
-    public static final double kPathMinLookaheadDistance = 24.0; // inches
     public static final double kPathFollowingMaxAccel = 80.0; // inches per second ^ 2
+
+    public static final Pose2d kRobotLeftStartingPose = new Pose2d(new Translation2d(48.0 + kRobotHalfLength, 97.0 + kRobotHalfWidth - 162.0), Rotation2d.fromDegrees(0));
+
     // PID gains for drive velocity loop
     // Units: setpoint, error, and output are in ticks per second.
     public static final double kDriveVelocityKp = 0.1;

@@ -20,7 +20,7 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  private Drive mDrive = Drive.getInstance();
+  private Controller controller;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +31,11 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    Drive mDrive = Drive.getInstance();
+
+    controller = new Controller(0);
+    controller.setDeadband(0.0);
   }
 
   /**
