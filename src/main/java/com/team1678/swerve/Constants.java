@@ -47,19 +47,12 @@ public class Constants {
     public static final int kCANTimeoutMs = 10; // use for on the fly updates
     public static final int kLongCANTimeoutMs = 100; // use for constructors
 
-    // Drive
-    public static final int kRightDriveMasterId = 3;
-    public static final int kRightDriveSlaveId = 4;
-
-    public static final int kLeftDriveMasterId = 1;
-    public static final int kLeftDriveSlaveId = 2;
-
-    public static final int kIndexerId = 5;
-
     //Limelight
     public static final double kMaxTrackerDistance = 15.0;
     public static final double kMaxGoalTrackAge = 30.0;
     public static final double kMaxGoalTrackSmoothingTime = 1.5;
     public static final double kCameraFrameRate = 90.0;
 
+    //Loops
+    public static final double kLooperDt = 0.01;
 }
