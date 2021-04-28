@@ -19,8 +19,13 @@ public class Constants {
     public static final double kSwerveDiagonal = Math.hypot(kWheelbaseLength, kWheelbaseWidth);
 
     //Swerve Odometry Constants
-    public static final double kSwerveWheelDiameter = 4.0901; //inches (actual diamter is closer to 3.87, but secondary algorithm prefers 4.0901) 3.76
-    public static final double kSwerveDriveEncoderResolution = 4096.0;
+    public static final double kWheelDiameter = 4.0901; //inches (actual diamter is closer to 3.87, but secondary algorithm prefers 4.0901) 3.76
+    public static final double kEncoderResolution = 4096.0; //TODO Find actual resolution for Falcon's built in encoders
+    public static final double kRotationMaxSpeed = 1250.0 * 0.8; //The 0.8 is to request a speed that is always achievable
+    public static final double kEncoderToWheelRatio = 6.0;
+    public static final double kSwerveEncUnitsPerWheelRev = kEncoderResolution * kEncoderToWheelRatio;
+    public static final double kSwerveEncUnitsPerInch = kSwerveEncUnitsPerWheelRev / (Math.PI * kWheelDiameter);
+
 
     // Tuned dynamics
     public static final double kPathFollowingMaxAccel = 80.0; // inches per second ^ 2
@@ -55,4 +60,25 @@ public class Constants {
 
     //Loops
     public static final double kLooperDt = 0.01;
+
+    //Falcons Ports
+    public static final int FRONT_RIGHT_ROTATION= 11;
+    public static final int FRONT_RIGHT_DRIVE   = 10;
+    public static final int FRONT_LEFT_ROTATION = 2;
+    public static final int FRONT_LEFT_DRIVE    = 1;
+    public static final int REAR_LEFT_ROTATION  = 4;
+    public static final int REAR_LEFT_DRIVE     = 5;
+    public static final int REAR_RIGHT_ROTATION = 7;
+    public static final int REAR_RIGHT_DRIVE    = 6;
+
+    //Stolen from O2019 code
+    public static final int kFrontRightEncoderStartingPos = -262;
+    public static final int kFrontLeftEncoderStartingPos = -2213;
+    public static final int kRearLeftEncoderStartingPos = -3906;
+    public static final int kRearRightEncoderStartingPos = -2398;
+
+    public static final Translation2d kVehicleToModuleZero = new Translation2d(kWheelbaseLength/2, kWheelbaseWidth/2);
+    public static final Translation2d kVehicleToModuleOne = new Translation2d(kWheelbaseLength/2, -kWheelbaseWidth/2);
+    public static final Translation2d kVehicleToModuleTwo = new Translation2d(-kWheelbaseLength/2, -kWheelbaseWidth/2);
+    public static final Translation2d kVehicleToModuleThree = new Translation2d(-kWheelbaseLength/2, kWheelbaseWidth/2);
 }

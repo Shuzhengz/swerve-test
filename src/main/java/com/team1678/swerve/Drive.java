@@ -24,10 +24,27 @@ public class Drive {
     //Modules
     public Modules frontRight, frontLeft, rearLeft, rearRight;
     List<Modules> modules;
-    List<Modules> positionModules;
+
+    private Pose2d pose;
+    private double distanceTraveled;
+    private double currentVelocity = 0;
+    private double lastUpdateTimestamp = 0;
+
+    public Pose2d getPose(){
+        return pose;
+    }
 
     private Drive() {
         mPeriodicIO = new PeriodicIO();
+
+        frontRight = new Modules(Constants.FRONT_RIGHT_ROTATION, Constants.FRONT_RIGHT_DRIVE,
+                0, Constants.kFrontRightEncoderStartingPos, Constants.kVehicleToModuleZero);
+        frontLeft = new Modules(Constants.FRONT_LEFT_ROTATION, Constants.FRONT_LEFT_DRIVE,
+                1, Constants.kFrontLeftEncoderStartingPos, Constants.kVehicleToModuleOne);
+        rearLeft = new Modules(Constants.REAR_LEFT_ROTATION, Constants.REAR_LEFT_DRIVE,
+                2, Constants.kRearLeftEncoderStartingPos, Constants.kVehicleToModuleTwo);
+        rearRight = new Modules(Constants.REAR_RIGHT_ROTATION, Constants.REAR_RIGHT_DRIVE,
+                3, Constants.kRearRightEncoderStartingPos, Constants.kVehicleToModuleThree);
     }
 
     public static Drive getInstance() {
