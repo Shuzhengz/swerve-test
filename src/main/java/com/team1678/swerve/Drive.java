@@ -6,7 +6,6 @@ import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.sensors.PigeonIMU;
 
 import com.team254.lib.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -49,6 +48,14 @@ public class Drive {
 
     public static Drive getInstance() {
         return mInstance;
+    }
+
+    public void setDriveOutput(double voltage) {
+        modules.forEach(m -> m.setNominalDriveOutput(voltage));
+    }
+
+    public void readInput(double x, double y, double rotate) {
+
     }
 
     public static class PeriodicIO {

@@ -4,6 +4,8 @@
 
 package com.team1678.swerve;
 
+import com.team1678.swerve.loops.Looper;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,6 +24,11 @@ public class Robot extends TimedRobot {
 
   private Controller controller;
 
+  private Looper enabledLooper = new Looper();
+  private Looper disabledLooper = new Looper();
+
+  private Drive drive = Drive.getInstance();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -32,10 +39,11 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    Drive mDrive = Drive.getInstance();
+
 
     controller = new Controller(0);
     controller.setDeadband(0.0);
+
   }
 
   /**
@@ -46,7 +54,9 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    enabledLooper.outputToSmartDashboard();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different
@@ -58,42 +68,79 @@ public class Robot extends TimedRobot {
    * below with additional strings. If using the SendableChooser make sure to add them to the
    * chooser code above as well.
    */
-  @Override
-  public void autonomousInit() {
-    m_autoSelected = m_chooser.getSelected();
-    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    System.out.println("Auto selected: " + m_autoSelected);
-  }
 
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {
-    switch (m_autoSelected) {
-      case kCustomAuto:
-        // Put custom auto code here
-        break;
-      case kDefaultAuto:
-      default:
-        // Put default auto code here
-        break;
-    }
-  }
+  // No Auto
+  //
+  // @Override
+  //  public void autonomousInit() {
+  //    m_autoSelected = m_chooser.getSelected();
+  //    // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
+  //    System.out.println("Auto selected: " + m_autoSelected);
+  //  }
+  //
+  //  /** This function is called periodically during autonomous. */
+  //  @Override
+  //  public void autonomousPeriodic() {
+  //    switch (m_autoSelected) {
+  //      case kCustomAuto:
+  //        // Put custom auto code here
+  //        break;
+  //      case kDefaultAuto:
+  //      default:
+  //        // Put default auto code here
+  //        break;
+  //    }
+  //  }
 
   /** This function is called once when teleop is enabled. */
   @Override
-  public void teleopInit() {}
+  public void teleopInit() {
+    try {
+      disabledLooper.stop();
+      enabledLooper.start();
+      drive.setDriveOutput(0.0);
+      SmartDashboard.putBoolean("Auto", false);
+    } catch (Exception t) {
+      System.out.println(t);
+      throw t;
+    }
+  }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    try {
+      normalMode();
+
+      enabledLooper.outputToSmartDashboard();
+    } catch (Throwable t) {
+      System.out.println(t);
+      throw t;
+    }
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    try {
+      enabledLooper.stop();
+      disabledLooper.start();
+    } catch (Throwable t) {
+      System.out.println(t);
+      throw t;
+    }
+  }
 
   /** This function is called periodically when disabled. */
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    try {
+      enabledLooper.outputToSmartDashboard();
+    } catch (Throwable t) {
+      System.out.println(t);
+      throw t;
+    }
+  }
 
   /** This function is called once when test mode is enabled. */
   @Override
@@ -102,4 +149,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  private void normalMode() {
+    double swerveYInput = controller.getX(GenericHID.Hand.kLeft);
+    double swerveXInput = -controller.getY(GenericHID.Hand.kLeft);
+    double swerveRotationInput = (false ? 0.0 : controller.getX(GenericHID.Hand.kRight));
+
+    drive.readInput(swerveXInput, swerveYInput, swerveRotationInput);
+  }
 }

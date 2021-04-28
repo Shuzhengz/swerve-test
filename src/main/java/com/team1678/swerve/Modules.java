@@ -93,6 +93,11 @@ public class Modules {
         return encUnits/Constants.kSwerveEncUnitsPerInch;
     }
 
+    public synchronized void setNominalDriveOutput(double voltage){
+        driveMotor.configNominalOutputForward(voltage / 12.0, 10);
+        driveMotor.configNominalOutputReverse(-voltage / 12.0, 10);
+    }
+
     public void outputTelemetry() {
         SmartDashboard.putNumber(kModuleName + "Angle", getModuleAngle().getDegrees());
         SmartDashboard.putNumber(kModuleName + "Velocity", encoderVelocityToInchesPerSecond(periodicIO.velocity));
