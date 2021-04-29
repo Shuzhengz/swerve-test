@@ -18,8 +18,6 @@ public class Drive {
 
     private static Drive mInstance = new Drive();
 
-    private PeriodicIO mPeriodicIO;
-
     //Modules
     public Modules frontRight, frontLeft, rearLeft, rearRight;
     List<Modules> modules;
@@ -33,9 +31,7 @@ public class Drive {
         return pose;
     }
 
-    private Drive() {
-        mPeriodicIO = new PeriodicIO();
-
+    Drive() {
         frontRight = new Modules(Constants.FRONT_RIGHT_ROTATION, Constants.FRONT_RIGHT_DRIVE,
                 0, Constants.kFrontRightEncoderStartingPos, Constants.kVehicleToModuleZero);
         frontLeft = new Modules(Constants.FRONT_LEFT_ROTATION, Constants.FRONT_LEFT_DRIVE,
@@ -55,19 +51,12 @@ public class Drive {
     }
 
     public void readInput(double x, double y, double rotate) {
-
+        // TODO do stuff
     }
 
     public void outputTelemetry() {
         modules.forEach(m -> m.outputTelemetry());
         SmartDashboard.putNumberArray("Robot Pose", new double[]{pose.getTranslation().x(), pose.getTranslation().y(),
                 pose.getRotation().getUnboundedDegrees()});
-    }
-
-    public static class PeriodicIO {
-        // INPUTS
-
-        // OUTPUTS
-
     }
 }
