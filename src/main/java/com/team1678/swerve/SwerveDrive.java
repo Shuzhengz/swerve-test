@@ -1,7 +1,5 @@
 package com.team1678.swerve;
 
-import com.team1678.swerve.Constants;
-
 public class SwerveDrive extends Drive{
 
     public static final double L = Constants.kRobotLength;
@@ -14,7 +12,7 @@ public class SwerveDrive extends Drive{
      * @param x2  X value of second joystick
      * @return swerveWheelAngles, swerveWheelSpeeds
      */
-    public double[][] calcSwerveWheels(double x1, double y1, double x2) {
+    public static double[][] calcSwerveWheels(double x1, double y1, double x2) {
         double r = Math.sqrt ((L * L) + (W * W));
         y1 *= -1;
 
@@ -29,7 +27,7 @@ public class SwerveDrive extends Drive{
         return new double[][] {swerveWheelAngles, swerveWheelSpeeds};
      }
 
-    private double[] calcSpeeds(double a, double b, double c, double d) {
+    private static double[] calcSpeeds(double a, double b, double c, double d) {
         double backRightSpeed = Math.sqrt ((a * a) + (d * d));
         double backLeftSpeed = Math.sqrt ((a * a) + (c * c));
         double frontRightSpeed = Math.sqrt ((b * b) + (d * d));
@@ -37,7 +35,7 @@ public class SwerveDrive extends Drive{
         return new double[] {backRightSpeed, backLeftSpeed, frontRightSpeed, frontLeftSpeed};
     }
 
-    private double[] calcAngles(double a, double b, double c, double d) {
+    private static double[] calcAngles(double a, double b, double c, double d) {
         double backRightAngle = Math.atan2 (a, d) / Math.PI;
         double backLeftAngle = Math.atan2 (a, c) / Math.PI;
         double frontRightAngle = Math.atan2 (b, d) / Math.PI;

@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 
 
     controller = new Controller(0);
-    controller.setDeadband(0.0);
+    controller.setDeadBand(0.0);
 
   }
 

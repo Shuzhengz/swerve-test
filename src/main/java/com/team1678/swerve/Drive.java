@@ -11,6 +11,7 @@ import com.team254.lib.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +52,8 @@ public class Drive {
     }
 
     public void readInput(double x, double y, double rotate) {
-        // TODO do stuff
+        SwerveDrive.calcSwerveWheels(x, y, rotate);
+        // TODO do somthing
     }
 
     public void outputTelemetry() {

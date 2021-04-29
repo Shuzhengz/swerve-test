@@ -6,7 +6,7 @@ public class Controller extends XboxController {
 
     private double DEAD_BAND = 0.15;
 
-    public void setDeadband(double deadband){
+    public void setDeadBand(double deadband){
         DEAD_BAND = deadband;
     }
 
