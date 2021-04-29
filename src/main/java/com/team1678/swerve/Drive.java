@@ -53,7 +53,7 @@ public class Drive {
 
     public void readInput(double x, double y, double rotate) {
         SwerveDrive.calcSwerveWheels(x, y, rotate);
-        // TODO do somthing
+        // TODO do something
     }
 
     public void outputTelemetry() {

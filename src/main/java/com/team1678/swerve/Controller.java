@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj.XboxController;
 
 public class Controller extends XboxController {
 
-    private double DEAD_BAND = 0.15;
+    private double deadBand = 0.15;
 
-    public void setDeadBand(double deadband){
-        DEAD_BAND = deadband;
+    public void setDeadBand(double deadBand){
+        this.deadBand = deadBand;
     }
 
     /**
@@ -22,21 +22,21 @@ public class Controller extends XboxController {
     @Override
     public double getX(Hand hand) {
         if (hand.equals(Hand.kLeft)) {
-            return deadBand(getRawAxis(0), DEAD_BAND);
+            return deadBand(getRawAxis(0), deadBand);
         } else {
-            return deadBand(getRawAxis(4), DEAD_BAND);
+            return deadBand(getRawAxis(4), deadBand);
         }
     }
     @Override
     public double getY(Hand hand) {
         if (hand.equals(Hand.kLeft)) {
-            return deadBand(getRawAxis(1), DEAD_BAND);
+            return deadBand(getRawAxis(1), deadBand);
         } else {
-            return deadBand(getRawAxis(5), DEAD_BAND);
+            return deadBand(getRawAxis(5), deadBand);
         }
     }
 
-    public static double deadBand(double val, double deadband){
-        return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
+    public static double deadBand(double val, double deadBand){
+        return (Math.abs(val) > Math.abs(deadBand)) ? val : 0.0;
     }
 }
