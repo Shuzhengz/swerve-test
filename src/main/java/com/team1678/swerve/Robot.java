@@ -112,6 +112,7 @@ public class Robot extends TimedRobot {
     try {
       normalMode();
 
+      drive.outputTelemetry();
       enabledLooper.outputToSmartDashboard();
     } catch (Throwable t) {
       System.out.println(t);
@@ -153,7 +154,7 @@ public class Robot extends TimedRobot {
   private void normalMode() {
     double swerveYInput = controller.getX(GenericHID.Hand.kLeft);
     double swerveXInput = -controller.getY(GenericHID.Hand.kLeft);
-    double swerveRotationInput = (false ? 0.0 : controller.getX(GenericHID.Hand.kRight));
+    double swerveRotationInput = (controller.getX(GenericHID.Hand.kRight));
 
     drive.readInput(swerveXInput, swerveYInput, swerveRotationInput);
   }

@@ -58,6 +58,12 @@ public class Drive {
 
     }
 
+    public void outputTelemetry() {
+        modules.forEach(m -> m.outputTelemetry());
+        SmartDashboard.putNumberArray("Robot Pose", new double[]{pose.getTranslation().x(), pose.getTranslation().y(),
+                pose.getRotation().getUnboundedDegrees()});
+    }
+
     public static class PeriodicIO {
         // INPUTS
 
