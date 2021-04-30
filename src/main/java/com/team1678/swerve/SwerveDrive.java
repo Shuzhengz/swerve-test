@@ -2,8 +2,9 @@ package com.team1678.swerve;
 
 public class SwerveDrive extends Drive{
 
-    public static final double L = Constants.kRobotLength;
-    public static final double W = Constants.kRobotWidth;
+    private static final double K_ROBOT_LENGTH = Constants.kRobotLength;
+    private static final double K_ROBOT_WIDTH = Constants.kRobotWidth;
+    private static final double K_ROBOT_DIAMETER = Math.sqrt ((K_ROBOT_LENGTH * K_ROBOT_LENGTH) + (K_ROBOT_WIDTH * K_ROBOT_WIDTH));
 
     /**
      * Calculate the angle of the wheel based on joystick input
@@ -13,13 +14,11 @@ public class SwerveDrive extends Drive{
      * @return swerveWheelAngles, swerveWheelSpeeds
      */
     public static double[] calcSwerveWheelAngle(double x1, double y1, double x2) {
-        double r = Math.sqrt ((L * L) + (W * W));
-        y1 *= -1;
 
-        double a = x1 - x2 * (L / r);
-        double b = x1 + x2 * (L / r);
-        double c = y1 - x2 * (W / r);
-        double d = y1 + x2 * (W / r);
+        double a = x1 - x2 * (K_ROBOT_LENGTH / K_ROBOT_DIAMETER);
+        double b = x1 + x2 * (K_ROBOT_LENGTH / K_ROBOT_DIAMETER);
+        double c = inverse(y1) - x2 * (K_ROBOT_WIDTH / K_ROBOT_DIAMETER);
+        double d = inverse(y1) + x2 * (K_ROBOT_WIDTH / K_ROBOT_DIAMETER);
 
         return calcAngles(a, b, c, d);
      }
@@ -32,13 +31,11 @@ public class SwerveDrive extends Drive{
      * @return swerveWheelAngles, swerveWheelSpeeds
      */
      public static double[] calcSwerveWheelSpeed (double x1, double y1, double x2) {
-         double r = Math.sqrt ((L * L) + (W * W));
-         y1 *= -1;
 
-         double a = x1 - x2 * (L / r);
-         double b = x1 + x2 * (L / r);
-         double c = y1 - x2 * (W / r);
-         double d = y1 + x2 * (W / r);
+         double a = x1 - x2 * (K_ROBOT_LENGTH / K_ROBOT_DIAMETER);
+         double b = x1 + x2 * (K_ROBOT_LENGTH / K_ROBOT_DIAMETER);
+         double c = inverse(y1) - x2 * (K_ROBOT_WIDTH / K_ROBOT_DIAMETER);
+         double d = inverse(y1) + x2 * (K_ROBOT_WIDTH / K_ROBOT_DIAMETER);
 
          return calcSpeeds(a, b, c, d);
      }
@@ -57,5 +54,14 @@ public class SwerveDrive extends Drive{
         double frontRightAngle = Math.atan2 (b, d) / Math.PI;
         double frontLeftAngle = Math.atan2 (b, c) / Math.PI;
         return new double[]{backRightAngle, backLeftAngle, frontRightAngle, frontLeftAngle};
+    }
+
+    /**
+     * Simple inverse for doubles
+     * @param num any double number
+     * @return inverse of input number
+     */
+    private static double inverse(double num) {
+        return num * -1;
     }
 }
