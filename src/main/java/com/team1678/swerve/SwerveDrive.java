@@ -6,13 +6,13 @@ public class SwerveDrive extends Drive{
     public static final double W = Constants.kRobotWidth;
 
     /**
-     *
+     * Calculate the angle of the wheel based on joystick input
      * @param x1  X value of first joystick
      * @param y1  Y value of first joystick
      * @param x2  X value of second joystick
      * @return swerveWheelAngles, swerveWheelSpeeds
      */
-    public static double[][] calcSwerveWheels(double x1, double y1, double x2) {
+    public static double[] calcSwerveWheelAngle(double x1, double y1, double x2) {
         double r = Math.sqrt ((L * L) + (W * W));
         y1 *= -1;
 
@@ -21,10 +21,26 @@ public class SwerveDrive extends Drive{
         double c = y1 - x2 * (W / r);
         double d = y1 + x2 * (W / r);
 
-        double[] swerveWheelAngles = calcAngles(a, b, c, d);
-        double[] swerveWheelSpeeds = calcSpeeds(a, b, c, d);
+        return calcAngles(a, b, c, d);
+     }
 
-        return new double[][] {swerveWheelAngles, swerveWheelSpeeds};
+    /**
+     * Calculate the speed of the wheel based on joystick input
+     * @param x1  X value of first joystick
+     * @param y1  Y value of first joystick
+     * @param x2  X value of second joystick
+     * @return swerveWheelAngles, swerveWheelSpeeds
+     */
+     public static double[] calcSwerveWheelSpeed (double x1, double y1, double x2) {
+         double r = Math.sqrt ((L * L) + (W * W));
+         y1 *= -1;
+
+         double a = x1 - x2 * (L / r);
+         double b = x1 + x2 * (L / r);
+         double c = y1 - x2 * (W / r);
+         double d = y1 + x2 * (W / r);
+
+         return calcSpeeds(a, b, c, d);
      }
 
     private static double[] calcSpeeds(double a, double b, double c, double d) {

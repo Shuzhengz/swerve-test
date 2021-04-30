@@ -113,6 +113,9 @@ public class Robot extends TimedRobot {
       normalMode();
 
       drive.outputTelemetry();
+      drive.readPeriodicInputs();
+      drive.writePeriodicOutputs();
+
       enabledLooper.outputToSmartDashboard();
     } catch (Throwable t) {
       System.out.println(t);

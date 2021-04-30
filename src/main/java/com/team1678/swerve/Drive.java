@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import com.team254.lib.geometry.Pose2d;
+import com.team254.lib.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,6 +28,9 @@ public class Drive {
     private double distanceTraveled;
     private double currentVelocity = 0;
     private double lastUpdateTimestamp = 0;
+
+    private double[] swerveDriveAngles;
+    private double[] swerveDriveSpeeds;
 
     public Pose2d getPose(){
         return pose;
@@ -52,12 +56,40 @@ public class Drive {
     }
 
     public void readInput(double x, double y, double rotate) {
-        SwerveDrive.calcSwerveWheels(x, y, rotate);
-        // TODO do something
+        swerveDriveAngles = SwerveDrive.calcSwerveWheelAngle(x, y, rotate);
+        swerveDriveSpeeds = SwerveDrive.calcSwerveWheelSpeed(x, y, rotate);
+
+        driveRobot(rearRight, swerveDriveAngles[0], swerveDriveSpeeds[0]);
+        driveRobot(rearLeft, swerveDriveAngles[1], swerveDriveSpeeds[1]);
+        driveRobot(frontRight, swerveDriveAngles[2], swerveDriveSpeeds[2]);
+        driveRobot(frontLeft, swerveDriveAngles[3], swerveDriveSpeeds[3]);
+    }
+
+    /**
+     * Drives the robot
+     * @param module Module number
+     * @param power Rotation of angle motors in power
+     * @param speed Speed of the wheel motors in speed
+     */
+    private void driveRobot(Modules module, double power, double speed) {
+        module.setRotation(swerveModuleAngleToPower(power));
+        module.setDrive(speed);
+    }
+
+    private double swerveModuleAngleToPower(double angle) {
+        return angle*Constants.kSwerveModulePowerToAngle;
+    }
+
+    public synchronized void readPeriodicInputs() {
+        modules.forEach(Modules::readPeriodicInputs);
+    }
+
+    public synchronized void writePeriodicOutputs() {
+        modules.forEach(Modules::writePeriodicOutputs);
     }
 
     public void outputTelemetry() {
-        modules.forEach(m -> m.outputTelemetry());
+        modules.forEach(Modules::outputTelemetry);
         SmartDashboard.putNumberArray("Robot Pose", new double[]{pose.getTranslation().x(), pose.getTranslation().y(),
                 pose.getRotation().getUnboundedDegrees()});
     }

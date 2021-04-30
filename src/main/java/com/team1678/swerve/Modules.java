@@ -98,16 +98,37 @@ public class Modules {
         driveMotor.configNominalOutputReverse(-voltage / 12.0, 10);
     }
 
+    public void setRotation(double power){
+        periodicIO.rotationControlMode = ControlMode.PercentOutput;
+        periodicIO.rotationDemand = power;
+    }
+
+    public void setDrive(double velocity){
+        periodicIO.driveControlMode = ControlMode.PercentOutput;
+        periodicIO.driveDemand = velocity;
+    }
+
     public void outputTelemetry() {
         SmartDashboard.putNumber(kModuleName + "Angle", getModuleAngle().getDegrees());
         SmartDashboard.putNumber(kModuleName + "Velocity", encoderVelocityToInchesPerSecond(periodicIO.velocity));
     }
 
+    public synchronized void readPeriodicInputs() {
+        periodicIO.rotationPosition = (int) rotationMotor.getSelectedSensorPosition(0);
+        periodicIO.drivePosition = (int) driveMotor.getSelectedSensorPosition(0);
+        periodicIO.velocity = (int) driveMotor.getSelectedSensorVelocity();
+    }
+
+    public synchronized void writePeriodicOutputs() {
+        rotationMotor.set(periodicIO.rotationControlMode, periodicIO.rotationDemand);
+        driveMotor.set(periodicIO.driveControlMode, periodicIO.driveDemand);
+    }
 
     public static class PeriodicIO{
         //Inputs
         public int velocity = 0;
         public int rotationPosition = 0;
+        public int drivePosition = 0;
 
         //Outputs
         public ControlMode rotationControlMode = ControlMode.PercentOutput;

@@ -26,25 +26,13 @@ public class Constants {
     public static final double kSwerveEncUnitsPerWheelRev = kEncoderResolution * kEncoderToWheelRatio;
     public static final double kSwerveEncUnitsPerInch = kSwerveEncUnitsPerWheelRev / (Math.PI * kWheelDiameter);
 
+    public static final double kSwerveModulePowerToAngle = 1; //TODO Find the actual ratio
+
 
     // Tuned dynamics
     public static final double kPathFollowingMaxAccel = 80.0; // inches per second ^ 2
 
     public static final Pose2d kRobotLeftStartingPose = new Pose2d(new Translation2d(48.0 + kRobotHalfLength, 97.0 + kRobotHalfWidth - 162.0), Rotation2d.fromDegrees(0));
-
-    // PID gains for drive velocity loop
-    // Units: setpoint, error, and output are in ticks per second.
-    public static final double kDriveVelocityKp = 0.1;
-    public static final double kDriveVelocityKi = 0.0;
-    public static final double kDriveVelocityKd = 1.0;
-    public static final double kDriveVelocityKf = 0.0;
-    public static final int kDriveVelocityIZone = 0;
-    public static final double kDrivePositionKp = 0.021;
-    public static final double kDrivePositionKi = 0.0;
-    public static final double kDrivePositionKd = 0.0;
-    public static final double kDrivePositionKf = 0.05;
-    public static final int kDrivePositionIZone = 0;
-    public static final double kDriveVoltageRampRate = 0.0;
 
     /* I/O */
     // (Note that if multiple talons are dedicated to a mechanism, any sensors
